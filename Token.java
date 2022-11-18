@@ -1,9 +1,12 @@
 package arrow;
 
+import java.util.ArrayList;
+
 class Token{
 	
 	public String value;
 	public int type;
+
 	public ArrayList<Token> children = new ArrayList<>();
 
 	public Token(String val){
@@ -16,7 +19,14 @@ class Token{
 		this.type = type;
 	}
 
-	public bool hasChildren(){
+	public boolean hasChildren(){
 		return this.children.size() > 0;
+	}
+
+	public String toString(){
+		if(this.hasChildren()){
+			return "".format("(%s [%s])", this.value, this.children);	
+		}
+		return "".format("(%s)", this.value);
 	}
 }

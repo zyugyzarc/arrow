@@ -4,9 +4,8 @@ public class main{
 	public static void main(String[] args){
 
 		Tokenizer t = new Tokenizer();
-		t.parse("15 + 7");
 
-		System.out.println("Hola");
+		System.out.println( t.parse("(3 + 5) * 15 + 7") );
 	
 	}
 }

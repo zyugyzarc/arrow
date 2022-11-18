@@ -52,7 +52,9 @@ class Tokenizer{
 		tokenType.put("CTX[]", 501);
 		tokenType.put("CTX{}", 501);
 
-		tokenType.put("CTX()", "\\(.*\\)");
+		tokenRegex.put("CTX()", "CTX()");
+		tokenRegex.put("CTX[]", "CTX[]");
+		tokenRegex.put("CTX{}", "CTX{}");
 
 		// 6XX : Discard tokens
 		tokenType.put("discardS", 601);
@@ -67,6 +69,31 @@ class Tokenizer{
 
 	int getToken(String pattern, String expr){
 
+		if(pattern.startsWith("CTX")){
+
+			char op = pattern.charAt(3);
+			char cl = pattern.charAt(4);
+
+			int count = 0;
+			int i = 0;
+
+			do{
+
+				if(expr.charAt(i) == op){
+					count++;
+				}
+				else if(expr.charAt(i) == cl){
+					count--;
+				}
+
+				i++;
+
+			}while(count > 0 && i < expr.length());
+
+			return i+1;
+
+		}
+
 		Pattern p = Pattern.compile(pattern);
 		Matcher m = p.matcher(expr);
 
@@ -79,7 +106,9 @@ class Tokenizer{
 
 	}
 
-	public void parse(String expr){
+	public ArrayList<Token> parse(String expr){
+
+		ArrayList<Token> tokens = new ArrayList<>();
 
 		while(expr.length() > 0){
 		
@@ -97,9 +126,16 @@ class Tokenizer{
 
 					if(!key.startsWith("discard")){
 
-						this.tokens.add(
+						tokens.add(
 							new Token(token, tokenType.get(key))
 						);
+
+					}
+
+					if(key.startsWith("CTX")){
+
+						System.out.println("parsing " + token.substring(1, token.length()-1));
+						tokens.get(tokens.size()-1).children = this.parse(token.substring(1, token.length()-1));
 
 					}
 
@@ -113,6 +149,8 @@ class Tokenizer{
 			}
 
 		}
+
+		return tokens;
 
 	}
 
