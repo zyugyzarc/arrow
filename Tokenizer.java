@@ -8,7 +8,8 @@ import java.util.regex.Pattern;
 
 class Tokenizer{
 	
-	HashMap<String, Integer> tokenType = new HashMap<>();
+	public HashMap<String, Integer> tokenType = new HashMap<>();
+
 	HashMap<String, String> tokenRegex = new HashMap<>();
 	ArrayList<Token> tokens = new ArrayList<>();
 
@@ -20,20 +21,41 @@ class Tokenizer{
 		tokenType.put("Operator*", 103);
 		tokenType.put("Operator/", 104);
 
-		tokenType.put("Operator<-", 105);
-		tokenType.put("Operator->", 104);
+		tokenType.put("Operator<-", 121);
+		tokenType.put("Operator->", 122);
+
+		tokenType.put("Operator==", 111);
+		tokenType.put("Operator>" , 112);
+		tokenType.put("Operator<" , 113);
+		tokenType.put("Operator&&", 114);
+		tokenType.put("Operator||", 114);
+
+		tokenType.put("Operator,", 131);
 
 		tokenRegex.put("Operator+", "[+]");
 		tokenRegex.put("Operator-", "[-]");
 		tokenRegex.put("Operator*", "[*]");
 		tokenRegex.put("Operator/", "[/]");
 
+		tokenRegex.put("Operator<-", "<-");
+		tokenRegex.put("Operator->", "->");
+
+		tokenRegex.put("Operator==", "==");
+		tokenRegex.put("Operator<",  "<");
+		tokenRegex.put("Operator>",  ">");
+		tokenRegex.put("Operator&&", "&&");
+		tokenRegex.put("Operator||", "\\|\\|");
+
+		tokenRegex.put("Operator,", "[,]");
+
 		// 2XX : Literals
 		tokenType.put("Literal0", 201); // number literal
 		tokenType.put("LiteralS", 203); // String literal
+		tokenType.put("LiteralN", 204); // NULL literal
 
 		tokenRegex.put("Literal0", "[0-9.]+");
-		tokenRegex.put("LiteralS", "[\".*?\"]");
+		tokenRegex.put("LiteralS", "\".*?\"");
+		tokenRegex.put("LiteralN", "(NULL)?(null)?");
 
 		// 3XX : Identifier
 		tokenType.put("Identifier", 300);
@@ -49,8 +71,8 @@ class Tokenizer{
 
 		// 5XX : Contexts
 		tokenType.put("CTX()", 501);
-		tokenType.put("CTX[]", 501);
-		tokenType.put("CTX{}", 501);
+		tokenType.put("CTX[]", 502);
+		tokenType.put("CTX{}", 503);
 
 		tokenRegex.put("CTX()", "CTX()");
 		tokenRegex.put("CTX[]", "CTX[]");
@@ -86,11 +108,13 @@ class Tokenizer{
 					count--;
 				}
 
+				if(count <= 0){
+					return i>0 ? i+1 : 0;
+				}
+
 				i++;
 
-			}while(count > 0 && i < expr.length());
-
-			return i+1;
+			}while(i < expr.length());
 
 		}
 
@@ -126,15 +150,25 @@ class Tokenizer{
 
 					if(!key.startsWith("discard")){
 
-						tokens.add(
-							new Token(token, tokenType.get(key))
-						);
+						if(key.equals("LiteralS")){
+
+							tokens.add(
+								new Token(token.substring(1, token.length()-1), tokenType.get(key))
+							);
+
+						}
+						else{
+							
+							tokens.add(
+								new Token(token, tokenType.get(key))
+							);
+						}
 
 					}
 
 					if(key.startsWith("CTX")){
 
-						System.out.println("parsing " + token.substring(1, token.length()-1));
+						tokens.get(tokens.size()-1).value = key;
 						tokens.get(tokens.size()-1).children = this.parse(token.substring(1, token.length()-1));
 
 					}

@@ -25,8 +25,23 @@ class Token{
 
 	public String toString(){
 		if(this.hasChildren()){
-			return "".format("(%s [%s])", this.value, this.children);	
+			return "".format("(%s { %s })", this.value, this.children);	
 		}
 		return "".format("(%s)", this.value);
+	}
+
+	public void printTree(int tab){
+		
+		System.out.print( "    ".repeat(tab) + "[ " + this.value + " ]");
+
+		if(this.hasChildren()){
+			System.out.println("{");
+			for(Token t : this.children){
+				t.printTree(tab+1);
+			}
+			System.out.print("    ".repeat(tab) + "}");
+		}
+
+		System.out.println();
 	}
 }
