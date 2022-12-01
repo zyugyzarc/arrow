@@ -1,1 +1,5 @@
-[print] <- (1, 2, 3)
+main <- null -> {
+	value <- [input] <- "Enter Something: ",
+	[print] <- "you said " + value
+},
+[main] <- null

@@ -14,11 +14,13 @@ class Value{
 		   2     Boolean
 		   3     String
 		   4     List/Array   (Not Implemented yet)
+		   5     function
 	*/
 
 	public float value_num;
 	public String value_str;
 	public ArrayList<Value> value_arr;
+	public Token func;
 
 	public Value(){
 		this.typeid = 0;
@@ -47,6 +49,11 @@ class Value{
 	public Value(Value... list){
 		this.typeid = 4;
 		value_arr = new ArrayList<Value>(Arrays.asList(list));
+	}
+
+	public Value(Token t){
+		this.typeid = 5;
+		func = t; 
 	}
 
 	public void list(){

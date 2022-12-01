@@ -16,19 +16,24 @@ class Tokenizer{
 	public Tokenizer(){
 
 		// 1XX : Operators
+
+		// 10X : Arithematic operators
 		tokenType.put("Operator+", 101);
 		tokenType.put("Operator-", 102);
 		tokenType.put("Operator*", 103);
 		tokenType.put("Operator/", 104);
 
-		tokenType.put("Operator<-", 121);
-		tokenType.put("Operator->", 122);
-
+		// 11X : Logical Operators
 		tokenType.put("Operator==", 111);
 		tokenType.put("Operator>" , 112);
 		tokenType.put("Operator<" , 113);
 		tokenType.put("Operator&&", 114);
 		tokenType.put("Operator||", 114);
+
+
+		// 12X : Special operators
+		tokenType.put("Operator<-", 121);
+		tokenType.put("Operator->", 122);
 
 		tokenType.put("Operator,", 131);
 
@@ -78,7 +83,7 @@ class Tokenizer{
 		tokenRegex.put("CTX[]", "CTX[]");
 		tokenRegex.put("CTX{}", "CTX{}");
 
-		// 6XX : Discard tokens
+		// 6XX : Punctuation tokens - to be discarded
 		tokenType.put("discardS", 601);
 		tokenType.put("discardT", 602);
 		tokenType.put("discardN", 603);

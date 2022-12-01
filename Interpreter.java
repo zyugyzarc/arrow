@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Interpreter{
 
-	HashMap<String, Value> var_nums = new HashMap<>();
+	HashMap<String, Value> vars = new HashMap<>();
 
 	public Value run(Token t){
 		
@@ -33,13 +33,13 @@ public class Interpreter{
 				}
 			}
 
-			else if(t.type/10 == 12){ // special operators
+			else if(t.type == 121){ // special operator (<-)
 
 				Token l = t.children.get(0);
 				Token r = t.children.get(1);
 
 				if(l.type/100 == 3){ // identifier, assign variable
-					var_nums.put(l.value, run(r));
+					vars.put(l.value, run(r));
 				}
 				else if(l.type == 501 || l.type == 502){ // function call
 
@@ -47,6 +47,13 @@ public class Interpreter{
 						return function_call(l.children.get(0).value, r);
 					}
 				}
+
+			}
+
+			else if(t.type == 122){ // operator (->), func def
+
+				Token func = t.children.get(1);
+				vars.put(t.children.get(0).children.get(0).value, new Value(func));
 
 			}
 
@@ -66,7 +73,7 @@ public class Interpreter{
 
 		if(t.type/100 == 3){ // Identifier
 
-			return var_nums.get(t.value);
+			return vars.get(t.value);
 
 		}
 
@@ -88,6 +95,16 @@ public class Interpreter{
 				return new Value(s.nextLine());
 
 			default:
+				if(vars.containsKey(funcname)){
+					
+					Value func = vars.get(funcname);
+					
+					if(func.typeid == 5){
+						//funcname : func.children[0].children[0]
+						//args : func.children[0].children[1]
+						run( func.func );
+					}
+				}
 				return new Value();
 		}
 	}
