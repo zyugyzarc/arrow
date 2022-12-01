@@ -19,7 +19,7 @@ public class main{
 		ArrayList<Token> tokens = t.parse( source );
 		Token tree = p.parse(tokens);
 
-		tree.printTree(0);
+		//tree.printTree(0);
 
 		Value result = i.run(tree);
 
