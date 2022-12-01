@@ -19,7 +19,7 @@ class Value{
 
 	public float value_num;
 	public String value_str;
-	public ArrayList<Value> value_arr;
+	//public ArrayList<Value> value_arr;
 	public Token func;
 
 	public Value(){
@@ -46,20 +46,22 @@ class Value{
 		this.value_str = s;
 	}
 
-	public Value(Value... list){
-		this.typeid = 4;
-		value_arr = new ArrayList<Value>(Arrays.asList(list));
-	}
-
 	public Value(Token t){
 		this.typeid = 5;
 		func = t; 
+	}
+
+	/*
+	public Value(Value... list){
+		this.typeid = 4;
+		value_arr = new ArrayList<Value>(Arrays.asList(list));
 	}
 
 	public void list(){
 		this.typeid = 4;
 		value_arr = new ArrayList<Value>();
 	}
+	*/
 
 	public String toString(){
 		switch(this.typeid){
@@ -67,9 +69,26 @@ class Value{
 			case 1: return ""+ this.value_num;
 			case 2: return this.value_num==0?"false":"true";
 			case 3: return this.value_str;
-			case 4: return ""+ this.value_arr;
+			case 5: return "[function]";
 		}
 		return "INVALID TYPE";
+	}
+
+	public boolean truthy(){
+		switch(this.typeid){
+			case 0:
+			case 1:
+			case 2:
+				return this.value_num != 0;
+
+			case 3:
+				return this.value_str.length() > 0;
+
+			case 5:
+				return this.func != null;
+		}
+
+		return false;
 	}
 
 	public static Value parseValue(Token t){

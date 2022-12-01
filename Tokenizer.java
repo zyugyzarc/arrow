@@ -37,6 +37,7 @@ class Tokenizer{
 
 		tokenType.put("Operator,", 131);
 
+
 		tokenRegex.put("Operator+", "[+]");
 		tokenRegex.put("Operator-", "[-]");
 		tokenRegex.put("Operator*", "[*]");

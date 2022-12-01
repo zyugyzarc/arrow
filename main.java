@@ -13,13 +13,13 @@ public class main{
 		Parser p = new Parser(t);
 		Interpreter i = new Interpreter();
 
-		String filename = "arrow/test.ar";
+		String filename = args[0];
 		String source = Files.readString( Path.of(filename) );
 
 		ArrayList<Token> tokens = t.parse( source );
 		Token tree = p.parse(tokens);
 
-		//tree.printTree(0);
+		tree.printTree(0);
 
 		Value result = i.run(tree);
 

@@ -13,10 +13,16 @@ public class Parser{
 		order.put(tokenizer.tokenType.get("Operator->"), 1);
 		order.put(tokenizer.tokenType.get("Operator<-"), 2);
 
-		order.put(tokenizer.tokenType.get("Operator-"), 11);
-		order.put(tokenizer.tokenType.get("Operator+"), 12);
-		order.put(tokenizer.tokenType.get("Operator*"), 13);
-		order.put(tokenizer.tokenType.get("Operator/"), 14);
+		order.put(tokenizer.tokenType.get("Operator=="), 11);
+		order.put(tokenizer.tokenType.get("Operator>" ), 12);
+		order.put(tokenizer.tokenType.get("Operator<" ), 13);
+		order.put(tokenizer.tokenType.get("Operator&&"), 14);
+		order.put(tokenizer.tokenType.get("Operator||"), 14);
+
+		order.put(tokenizer.tokenType.get("Operator-"), 21);
+		order.put(tokenizer.tokenType.get("Operator+"), 22);
+		order.put(tokenizer.tokenType.get("Operator*"), 23);
+		order.put(tokenizer.tokenType.get("Operator/"), 24);
 
 	}
 
@@ -46,10 +52,7 @@ public class Parser{
 				}
 			}
 
-			//System.out.println( "parse " + tokens.get(tokenPos) );
-			//System.out.println( tokens );
-
-			// all operations are standard 2-element operations
+			// all operations are binary operators
 
 			tokens.get(tokenPos).children.add(tokens.get(tokenPos - 1));
 			tokens.get(tokenPos).children.add(tokens.get(tokenPos + 1));
