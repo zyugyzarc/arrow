@@ -1,5 +1,16 @@
 package arrow;
 
+/**
+
+ Arrow
+
+ By Sanjay Sankaran <sanjay.sankaran@bellevuecollege.edu>
+
+ A dynamically typed interpreter, made in java.
+ for further details, check the [documentation](doc.md.pdf)
+
+**/
+
 import java.util.ArrayList;
 import java.io.IOException;
 
