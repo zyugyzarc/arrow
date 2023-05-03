@@ -1,17 +1,3 @@
----
-documentclass: extarticle
-fontsize: 12pt
-title: Arrow
-author: Sanjay Sankaran
----
-
-[](for a better experience, use doc.md.pdf)
-
-\maketitle
-\newpage
-\tableofcontents
-\newpage
-
 # Arrow
 Arrow is a general purpose high level scripting language, with dynamic typing. The arrow interpreter is made in Java.
 
