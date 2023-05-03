@@ -26,7 +26,6 @@ value <- [input] <- null,
 ```
 As you can see, the commas make the program seem like an expression.
 
-\newpage
 ## Variables and Types
 
 Arrow currently supports the following types:
