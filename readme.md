@@ -66,7 +66,7 @@ Call/Assignment Operator (`<-`):
 * `a <- value` (Variable Initialization/Assignment)
 * `return_vals <- (func) <- args` (Function call)
 
-\newpage
+
 Get/Pull Operator (`->`):
 
 * `funcname <- funcarg -> funcreturn` (Function defenition)
@@ -108,7 +108,7 @@ somefunc <- null -> {
 
 will return `a + b`, which is `30`.
 
-\newpage
+
 The following built-in functions have been implemented:
 
 * `null <- [print] <- value` (prints `value` to the screen, and returns `null`)
@@ -150,7 +150,7 @@ name <- [input] <- "What's your name? ",
 [print] <- "Hello " + name
 ```
 
-\newpage
+
 output:
 ```
 What's your name? JaSON
@@ -188,7 +188,7 @@ Enter your score : 15
 You Failed.
 ```
 
-\newpage
+
 ## Print Stars
 
 ```
@@ -222,7 +222,7 @@ Enter size : 5
 *****
 ```
 
-\newpage
+
 ## Hello Person (with functions)
 
 ```
